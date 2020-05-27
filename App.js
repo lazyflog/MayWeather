@@ -3,9 +3,39 @@ import { Alert } from 'react-native';
 import Loading from './Loading';
 import * as Location from 'expo-location';
 import axios from 'axios';
-import Weather from './Weather';
+
+import propTypes from 'prop-types';
+
+import {WeatherView, HomeScreen} from './Weather';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const API_KEY = '43bf7802f3e1ec3e2f1fe2117a88cb5f';
+
+const Main = createStackNavigator();
+
+const weatherTypes = {
+	condition: [
+		'Thunderstorm',
+		'Drizzle',
+		'Rain',
+		'Snow',
+		'Clear',
+		'Clouds',
+		'Mist',
+		'Smoke',
+		'Haze',
+		'Dust',
+		'Fog',
+		'Sand',
+		'Dust',
+		'Ash',
+		'Squall',
+		'Tornado',
+	]
+};
 
 export default class extends React.Component {
 	state = {
@@ -48,7 +78,14 @@ export default class extends React.Component {
 		return isLoading ? (
 			<Loading />
 		) : (
-			<Weather temp={Math.round(temp)} condition={condition} />
+			<NavigationContainer>
+			<Main.Navigator initialRouteName="homeScreen">
+				<Main.Screen name='homeScreen'>
+					{props => <HomeScreen {...props} temperature={Math.round(temp)} condition={condition}/> }
+				</Main.Screen>
+				<Main.Screen name='weatherScreen' component={WeatherView}/>
+			</Main.Navigator>
+			</NavigationContainer>
 		);
 	}
 }
