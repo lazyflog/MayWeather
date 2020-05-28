@@ -3,52 +3,8 @@ import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-nativ
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import {getWeatherType} from './WeatherTypes.js';
-
 const SideMenu = require('react-native-side-menu');
 
-export function WeatherView({navigation, route}){
-	console.log(route.params);
-
-	let temperature = route.params.temperature;
-	let condition = route.params.condition;
-
-	let WeatherTypes = getWeatherType();
-	console.log(WeatherTypes);
-
-	return(
-		<LinearGradient
-			colors={WeatherTypes[condition].gradient}
-			style={styles.container}
-		>
-			<StatusBar barStyle="light-content" />
-			<View style={styles.container}>
-				<View style={styles.container2}>
-					<MaterialCommunityIcons
-						size={86}
-						name={WeatherTypes[condition].iconName}
-						color="white"
-					/>
-					<Text style={styles.temperature}>{temperature}˚</Text>
-					<Text style={styles.Title}>{WeatherTypes[condition].title}</Text>
-				</View>
-				<View style={{ ...styles.container2, ...styles.TextContainer }}>
-					<View>
-						<Text style={styles.SubTitle}>
-							{WeatherTypes[condition].subTitle}
-						</Text>
-						<TouchableOpacity style={styles.button} onPress={() => {
-							navigation.goBack();
-						}}
-						>
-							<Text style={{ color: '#FFF' }}>홈으로 돌아가기</Text>
-						</TouchableOpacity>
-					</View>
-				</View>
-			</View>
-		</LinearGradient>
-	);
-}
 
 export function HomeScreen({navigation, route, temperature: temperature, condition: condition}){
 	return(

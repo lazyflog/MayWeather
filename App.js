@@ -6,7 +6,9 @@ import axios from 'axios';
 
 import propTypes from 'prop-types';
 
-import {WeatherView, HomeScreen} from './Weather';
+import {HomeScreen} from './Weather';
+
+import {WeatherView} from './View/WeatherView.js';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
